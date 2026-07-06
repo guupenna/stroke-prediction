@@ -35,7 +35,7 @@ ct = ColumnTransformer(
     remainder='passthrough'
 )
 
-# applying fit on train data and transform on test and train data
+# creating pipeline for preprocessing and applying knn
 model = Pipeline(
     steps=[
         ('preprocessing', ct),
