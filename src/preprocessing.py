@@ -1,9 +1,10 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.pipeline import Pipeline
-from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer
+from sklearn.neighbors import KNeighborsClassifier
 
 # loading csv
 df_raw = pd.read_csv('../data/healthcare-dataset-stroke-data.csv')
@@ -17,19 +18,29 @@ y = df['stroke']
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.25, random_state=42)
 
+# creating pipeline for dealing with numeric features
 numeric_pipeline = Pipeline(
     steps=[
         ('imputer', SimpleImputer(strategy='mean')),
         ('scaler', StandardScaler())
-        ]
-    )
+    ]
+)
 
+# creating column transformer for aggregate transformer operations
 ct = ColumnTransformer(
     transformers=[
         ('num', numeric_pipeline, ['age', 'avg_glucose_level', 'bmi']),
-        ('cat', OneHotEncoder(), ['gender', 'ever_married', 'work_type', 'Residence_type', 'smoking_status'])
+        ('cat', OneHotEncoder(handle_unknown='infrequent_if_exist'), ['gender', 'ever_married', 'work_type', 'Residence_type', 'smoking_status'])
     ],
     remainder='passthrough'
 )
 
-X_trans = ct.fit_transform(X_train)
+# applying fit on train data and transform on test and train data
+model = Pipeline(
+    steps=[
+        ('preprocessing', ct),
+        ('classifier', KNeighborsClassifier())
+    ]
+)
+
+model.fit(X_train, y_train)
