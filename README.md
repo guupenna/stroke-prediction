@@ -53,4 +53,3 @@ stroke-prediction/
 - [ ] Testar modelos baseados em árvores (Random Forest, XGBoost, etc.)
 - [ ] Refinar o tratamento de valores faltantes (por exemplo, explorar mediana ao invés de média para o IMC)
 - [ ] Implementar cross-validation
-- [ ] Adicionar um `requirements.txt` para facilitar a reprodução do ambiente.
