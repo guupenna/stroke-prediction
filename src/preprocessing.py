@@ -18,29 +18,23 @@ y = df['stroke']
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.25, random_state=42)
 
-# creating pipeline for dealing with numeric features
-numeric_pipeline = Pipeline(
-    steps=[
-        ('imputer', SimpleImputer(strategy='mean')),
-        ('scaler', StandardScaler())
-    ]
-)
 
-# creating column transformer for aggregate transformer operations
-ct = ColumnTransformer(
-    transformers=[
-        ('num', numeric_pipeline, ['age', 'avg_glucose_level', 'bmi']),
-        ('cat', OneHotEncoder(handle_unknown='infrequent_if_exist'), ['gender', 'ever_married', 'work_type', 'Residence_type', 'smoking_status'])
-    ],
-    remainder='passthrough'
-)
+def create_preprocessor():
+    # creating pipeline for dealing with numeric features
+    numeric_pipeline = Pipeline(
+        steps=[
+            ('imputer', SimpleImputer(strategy='mean')),
+            ('scaler', StandardScaler())
+        ]
+    )
 
-# creating pipeline for preprocessing and applying knn
-model = Pipeline(
-    steps=[
-        ('preprocessing', ct),
-        ('classifier', KNeighborsClassifier())
-    ]
-)
+    # creating column transformer for aggregate transformer operations
+    preprocessor = ColumnTransformer(
+        transformers=[
+            ('num', numeric_pipeline, ['age', 'avg_glucose_level', 'bmi']),
+            ('cat', OneHotEncoder(handle_unknown='infrequent_if_exist'), ['gender', 'ever_married', 'work_type', 'Residence_type', 'smoking_status'])
+        ],
+        remainder='passthrough'
+    )
 
-model.fit(X_train, y_train)
+    return preprocessor
