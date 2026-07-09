@@ -5,9 +5,9 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 
-def load_data():
+def load_data(path):
     # loading csv
-    df_raw = pd.read_csv('../data/healthcare-dataset-stroke-data.csv')
+    df_raw = pd.read_csv(path)
 
     # dropping non impactful columns
     df = df_raw.drop(columns=['id'])
