@@ -49,7 +49,7 @@ stroke-prediction/
 
 ## Roadmap (Em desenvolvimento)
 
-- [ ] Lidar com o desbalanceamento de classes, algo comum em dados médicos
+- [ ] Lidar com o desbalanceamento de classes, algo comum em dados médicos.
 - [ ] Testar modelos baseados em árvores (Random Forest, XGBoost, etc.)
 - [ ] Refinar o tratamento de valores faltantes (por exemplo, explorar mediana ao invés de média para o IMC)
 - [ ] Implementar cross-validation
