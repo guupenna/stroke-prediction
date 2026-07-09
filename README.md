@@ -4,7 +4,7 @@ Um mini-projeto de Machine Learning desenvolvido com Python, Pandas e Scikit-lea
 
 ## Motivação
 
-Este projeto foi construído com o objetivo principal de **aprender e aplicar conceitos práticos de Inteligência Artificial e Machine Learning**. Embora seja um projeto de estudos (nível graduação), ele busca aplicar boas práticas de engenharia de software voltadas para dados, como modularização e pipelines.
+Este projeto foi construído com o objetivo principal de **aprender e aplicar conceitos práticos de Inteligência Artificial e Machine Learning**.
 
 ## Tecnologias Utilizadas
 
