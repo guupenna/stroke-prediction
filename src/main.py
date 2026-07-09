@@ -11,7 +11,7 @@ def main():
 
     model.fit(X_train, y_train)
 
-    evaluate(model, X_test, y_test)
+    evaluate(model, X_train, y_train, X_test, y_test)
 
 
 if __name__ == "__main__":
