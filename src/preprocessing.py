@@ -6,17 +6,18 @@ from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 from sklearn.neighbors import KNeighborsClassifier
 
-# loading csv
-df_raw = pd.read_csv('../data/healthcare-dataset-stroke-data.csv')
+def load_data():
+    # loading csv
+    df_raw = pd.read_csv('../data/healthcare-dataset-stroke-data.csv')
 
-# dropping non impactful columns
-df = df_raw.drop(columns=['id'])
+    # dropping non impactful columns
+    df = df_raw.drop(columns=['id'])
 
-# splitting dataset into train and test
-X = df.drop(columns=['stroke'])
-y = df['stroke']
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.25, random_state=42)
+    # splitting dataset into train and test
+    X = df.drop(columns=['stroke'])
+    y = df['stroke']
+
+    return train_test_split(X, y, test_size=0.25, random_state=42)
 
 
 def create_preprocessor():
