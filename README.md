@@ -47,12 +47,10 @@ stroke-prediction/
    python main.py
    ```
 
-## Roadmap e Próximos Passos (Em Desenvolvimento)
+## Roadmap (Em desenvolvimento)
 
-Como este é um projeto contínuo de aprendizado, aqui estão os próximos passos que pretendo implementar:
-
-- [ ] Lidar com o desbalanceamento de classes (SMOTE, class_weight, etc.), comum em dados médicos.
-- [ ] Testar modelos baseados em árvores (Random Forest, XGBoost).
-- [ ] Refinar o tratamento de valores faltantes (ex: explorar mediana ao invés de média para o IMC).
-- [ ] Implementar Validação Cruzada (Cross-Validation).
+- [ ] Lidar com o desbalanceamento de classes, algo comum em dados médicos
+- [ ] Testar modelos baseados em árvores (Random Forest, XGBoost, etc.)
+- [ ] Refinar o tratamento de valores faltantes (por exemplo, explorar mediana ao invés de média para o IMC)
+- [ ] Implementar cross-validation
 - [ ] Adicionar um `requirements.txt` para facilitar a reprodução do ambiente.
