@@ -4,53 +4,37 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import confusion_matrix, classification_report
 
-# loading csv
-df_raw = pd.read_csv('../data/healthcare-dataset-stroke-data.csv')
+def load_data(path):
+    # loading csv
+    df_raw = pd.read_csv(path)
 
-# dropping non impactful columns
-df = df_raw.drop(columns=['id'])
+    # dropping non impactful columns
+    df = df_raw.drop(columns=['id'])
 
-# splitting dataset into train and test
-X = df.drop(columns=['stroke'])
-y = df['stroke']
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.25, random_state=42)
+    # splitting dataset into train and test
+    X = df.drop(columns=['stroke'])
+    y = df['stroke']
 
-# creating pipeline for dealing with numeric features
-numeric_pipeline = Pipeline(
-    steps=[
-        ('imputer', SimpleImputer(strategy='mean')),
-        ('scaler', StandardScaler())
-    ]
-)
+    return train_test_split(X, y, test_size=0.25, random_state=42)
 
-# creating column transformer for aggregate transformer operations
-ct = ColumnTransformer(
-    transformers=[
-        ('num', numeric_pipeline, ['age', 'avg_glucose_level', 'bmi']),
-        ('cat', OneHotEncoder(handle_unknown='infrequent_if_exist'), ['gender', 'ever_married', 'work_type', 'Residence_type', 'smoking_status'])
-    ],
-    remainder='passthrough'
-)
 
-# creating pipeline for preprocessing and applying knn
-model = Pipeline(
-    steps=[
-        ('preprocessing', ct),
-        ('classifier', KNeighborsClassifier())
-    ]
-)
+def create_preprocessor():
+    # creating pipeline for dealing with numeric features
+    numeric_pipeline = Pipeline(
+        steps=[
+            ('imputer', SimpleImputer(strategy='mean')),
+            ('scaler', StandardScaler())
+        ]
+    )
 
-model.fit(X_train, y_train)
+    # creating column transformer for aggregate transformer operations
+    preprocessor = ColumnTransformer(
+        transformers=[
+            ('num', numeric_pipeline, ['age', 'avg_glucose_level', 'bmi']),
+            ('cat', OneHotEncoder(handle_unknown='infrequent_if_exist'), ['gender', 'ever_married', 'work_type', 'Residence_type', 'smoking_status'])
+        ],
+        remainder='passthrough'
+    )
 
-y_pred = model.predict(X_test)
-
-cm = confusion_matrix(y_test, y_pred)
-print("Confusion matrix:")
-print(cm)
-
-print("\nclassification report:")
-print(classification_report(y_test, y_pred))
+    return preprocessor
