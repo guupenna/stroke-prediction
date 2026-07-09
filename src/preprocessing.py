@@ -5,6 +5,7 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import confusion_matrix, classification_report
 
 # loading csv
 df_raw = pd.read_csv('../data/healthcare-dataset-stroke-data.csv')
@@ -44,3 +45,12 @@ model = Pipeline(
 )
 
 model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+cm = confusion_matrix(y_test, y_pred)
+print("Confusion matrix:")
+print(cm)
+
+print("\nclassification report:")
+print(classification_report(y_test, y_pred))
